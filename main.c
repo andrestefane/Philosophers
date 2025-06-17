@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:20:11 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/17 21:04:33 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:05:54 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ int	main(int argc, char **argv)
 	check_args(argv);
 	init_struct(&config, argv);
 	print_config(&config);
-	free(&config);
 }
