@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:16:26 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/17 21:03:27 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:15:34 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_philo
 	int				count_meals;
 	long			last_meal_time;
 	pthread_t		thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*l_f;
+	pthread_mutex_t	*r_f;
 	t_config		*config;
 }	t_philo;
 
@@ -53,5 +53,7 @@ long	long_atoi(char *argv);
 int		is_numeric(char *str);
 void	init_struct(t_config *config, char **argv);
 void	check_config(t_config *config, char **argv);
+void	init_philo(t_config *config);
+void	start_simulation(t_config *config);
 
 #endif

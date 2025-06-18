@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:20:11 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/17 21:05:54 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:15:45 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	print_config(t_config *config)
 	printf("===========================================\n");
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_config	config;
@@ -39,4 +38,7 @@ int	main(int argc, char **argv)
 	check_args(argv);
 	init_struct(&config, argv);
 	print_config(&config);
+	init_philos(&config);
+	start_simulation(&config);
+	free(config.forks);
 }

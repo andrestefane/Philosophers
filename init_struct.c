@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 18:49:28 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/17 21:00:12 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:55:05 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ void	init_struct(t_config *config, char **argv)
 	{
 		if (pthread_mutex_init(&config->forks[i], NULL) != 0)
 			(printf("Error: at init forks %d\n", i), exit(1));
+		i++;
+	}
+}
+
+void	init_philo(t_config *config)
+{
+	int	i;
+
+	i = 0;
+	config->philos = malloc(sizeof(t_philo) * config->n_of_philos);
+	if (!config->philos)
+		(printf("Error: malloc philos\n"),exit (1));
+	while (i < config->n_of_philos)
+	{
+		config->philos[i].id = i + 1;
+		config->philos[i].count_meals = 0;
+		config->philos[i].last_meal_time = 0;
+		config->philos[i].config = config;
+		config->philos[i].l_f = &config->forks[i];
+		config->philos[i].r_f = &config->forks[(i + 1) % config->n_of_philos];
 		i++;
 	}
 }

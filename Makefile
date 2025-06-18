@@ -6,7 +6,7 @@
 #    By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/16 18:36:39 by astefane          #+#    #+#              #
-#    Updated: 2025/06/17 21:15:09 by astefane         ###   ########.fr        #
+#    Updated: 2025/06/18 14:09:58 by astefane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS := \
 	parse.c \
 	utils_parse.c \
 	init_struct.c \
-	ft_message_error.c
+	ft_message_error.c \
+	utils_main.c \
 
 OBJ_DIR := obj
 OBJS := $(SRCS:.c=.o)
