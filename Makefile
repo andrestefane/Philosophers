@@ -6,7 +6,7 @@
 #    By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/16 18:36:39 by astefane          #+#    #+#              #
-#    Updated: 2025/06/18 14:09:58 by astefane         ###   ########.fr        #
+#    Updated: 2025/06/20 19:10:32 by astefane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS := \
 	init_struct.c \
 	ft_message_error.c \
 	utils_main.c \
+	philo_routine.c \
+	monitor.c \
 
 OBJ_DIR := obj
 OBJS := $(SRCS:.c=.o)

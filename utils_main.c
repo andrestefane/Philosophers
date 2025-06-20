@@ -6,12 +6,11 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 14:09:40 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/18 17:03:54 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:58:24 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 long	get_time_ms(void)
 {
@@ -28,7 +27,15 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->config->finish)
 	{
+		print_action(philo, "is_thinking");
+		take_forks(philo);
+		print_action(philo, "is_eating");
+		usleep(philo->config->time_to_eat * 1000);
+		philo->count_meals++;
+		print_action(philo, "is_sleeping");
+		usleep(philo->config->time_to_sleep * 1000);
 	}
+	return (NULL);
 }
 
 void	start_simulation(t_config *config)
