@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:35:33 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/20 18:59:42 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:59:18 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ void	take_forks(t_philo *philo)
 void	release_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->r_f);
+	print_action(philo, "has release a fork");
 	pthread_mutex_unlock(philo->l_f);
+	print_action(philo, "has release a fork");
 }
