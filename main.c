@@ -6,28 +6,11 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:20:11 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/25 14:30:10 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:12:14 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	print_config(t_config *config)
-{
-	printf("===== CONFIGURACIÓN DE LA SIMULACIÓN =====\n");
-	printf("Número de filósofos       : %d\n", config->n_of_philos);
-	printf("Tiempo hasta morir (ms)   : %ld\n", config->time_to_die);
-	printf("Tiempo para comer (ms)    : %ld\n", config->time_to_eat);
-	printf("Tiempo para dormir (ms)   : %ld\n", config->time_to_sleep);
-	if (config->meals_required == -1)
-		printf("Veces que debe comer c/u  : [no definido]\n");
-	else
-		printf("Veces que debe comer c/u  : %d\n", config->meals_required);
-	printf("Inicio de simulación (ms) : %ld\n", config->start);
-	printf("Flag de finalización      : %d\n", config->finish);
-	printf("Forks                      : %p\n", (void *)config->forks);
-	printf("===========================================\n");
-}
 
 int	main(int argc, char **argv)
 {

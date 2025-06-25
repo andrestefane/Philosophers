@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 20:57:09 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/25 14:55:22 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:12:06 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_config(t_config *config, char **argv)
 {
 	if (argv[5])
-		config->meals_required = (int)long_atoi(argv[5]);
+		config->meals_required = long_atoi(argv[5]);
 	if (config->n_of_philos <= 0 || config->n_of_philos > 200)
 		(printf("Error: Number of philos are incorrect\n"), exit(1));
 	if (config->time_to_die < 1 || config->time_to_eat < 1

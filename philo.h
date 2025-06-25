@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:16:26 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/25 13:47:20 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:11:49 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void				*monitor_philo(void *arg);
 void				join_threads(t_config *config);
 void				destroy_and_clean(t_config *config);
 void				print_config(t_config *config);
+void				init_config_values(t_config *config, char **argv);
 
 #endif
