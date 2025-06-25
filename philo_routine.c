@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 20:35:33 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/24 16:59:18 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:45:15 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	print_action(t_philo *philo, char *msg)
 void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_f);
-	print_action(philo, "has taken a fork");
 	pthread_mutex_lock(philo->r_f);
-	print_action(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->config->meal_lock);
 	philo->last_meal_time = get_time_ms();
 	pthread_mutex_unlock(&philo->config->meal_lock);
@@ -37,7 +35,5 @@ void	take_forks(t_philo *philo)
 void	release_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->r_f);
-	print_action(philo, "has release a fork");
 	pthread_mutex_unlock(philo->l_f);
-	print_action(philo, "has release a fork");
 }

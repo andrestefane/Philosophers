@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:02:54 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/24 17:22:14 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:48:30 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ void	*monitor_philo(void *arg)
 	return (NULL);
 }
 
-
 void	join_threads(t_config *config)
 {
 	int	i;
 
+	if (!config->philos)
+		return ;
 	i = 0;
 	while (i < config->n_of_philos)
 	{
-		pthread_join(config->philos[i].thread, NULL);
+		if (config->philos[i].thread)
+			pthread_join(config->philos[i].thread, NULL);
 		i++;
 	}
 }
@@ -61,11 +63,24 @@ void	destroy_and_clean(t_config *config)
 {
 	int	i;
 
-	i = 0;
-	while (i < config->n_of_philos)
-		pthread_mutex_destroy(&config->forks[i++]);
+	if (config->forks)
+	{
+		i = 0;
+		while (i < config->forks_initialized)
+		{
+			printf("Destroying fork mutex %d @ %p\n", i, (void *)&config->forks[i]);
+			pthread_mutex_destroy(&config->forks[i]);
+			i++;
+		}
+		free(config->forks);
+		config->forks = NULL;
+	}
 	pthread_mutex_destroy(&config->print_lock);
 	pthread_mutex_destroy(&config->meal_lock);
-	free(config->forks);
-	free(config->philos);
+	pthread_mutex_destroy(&config->done_eating_lock);
+	if (config->philos)
+	{
+		free(config->philos);
+		config->philos = NULL;
+	}
 }

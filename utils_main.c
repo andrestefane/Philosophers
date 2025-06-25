@@ -6,7 +6,7 @@
 /*   By: astefane <astefane@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 14:09:40 by astefane          #+#    #+#             */
-/*   Updated: 2025/06/24 17:23:08 by astefane         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:49:39 by astefane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,61 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->config->n_of_philos == 1)
+	{
+		pthread_mutex_lock(philo->l_f);
+		usleep(philo->config->time_to_die * 1000);
+		pthread_mutex_unlock(philo->l_f);
+		return (NULL);
+	}
 	if (philo->id % 2 == 0)
 		usleep(1000);
+	pthread_mutex_lock(&philo->config->meal_lock);
+	philo->last_meal_time = get_time_ms();
+	pthread_mutex_unlock(&philo->config->meal_lock);
 	while (!philo->config->finish)
 	{
-		print_action(philo, "is_thinking");
 		take_forks(philo);
-		print_action(philo, "is_eating");
+		print_action(philo, "is thinking");
+		print_action(philo, "is eating");
 		usleep(philo->config->time_to_eat * 1000);
+		pthread_mutex_lock(&philo->config->meal_lock);
+		philo->last_meal_time = get_time_ms();
 		philo->count_meals++;
+		if (philo->config->meals_required > 0
+			&& philo->count_meals == philo->config->meals_required)
+		{
+			pthread_mutex_lock(&philo->config->done_eating_lock);
+			philo->config->philos_done_eating++;
+			if (philo->config->philos_done_eating == philo->config->n_of_philos)
+				philo->config->finish = 1;
+			pthread_mutex_unlock(&philo->config->done_eating_lock);
+		}
+		pthread_mutex_unlock(&philo->config->meal_lock);
 		release_forks(philo);
-		print_action(philo, "is_sleeping");
+		print_action(philo, "is sleeping");
 		usleep(philo->config->time_to_sleep * 1000);
 	}
 	return (NULL);
 }
 
-void	start_simulation(t_config *config)
+int	start_simulation(t_config *config)
 {
 	int	i;
 
-	i = 0;
 	config->start = get_time_ms();
+	i = 0;
+	print_config(config);
 	while (i < config->n_of_philos)
 	{
 		config->philos[i].last_meal_time = config->start;
-		if (pthread_create(&config->philos[i].thread, NULL,
-				philo_routine, &config->philos[i]) != 0)
-			(printf("Error creating thread%d\n", i), exit(1));
+		if (pthread_create(&config->philos[i].thread, NULL, philo_routine,
+				&config->philos[i]) != 0)
+		{
+			printf("Error: pthread_create failed for philo %d\n", i + 1);
+			return (1);
+		}
 		i++;
 	}
+	return (0);
 }
